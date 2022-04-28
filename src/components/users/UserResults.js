@@ -1,38 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
+import Spin from '../layout/Spin';
+import UserItem from './UserItem';
+import GitHubContext from '../../context/github/GithubContext';
 
 const UserResults = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { users, loading, fetchUsers } = useContext(GitHubContext);
 
   useEffect(() => {
     fetchUsers();
   }, []);
 
-  // const fetchUsers = async () => {
-  //   const response = await fetch(`${process.env.REACT_GITHUB_URL}/users`, {
-  //     headers: {
-  //       Authorization: `token ${process.env.REACT_APP_GITHUB_TOKEN}`,
-  //     },
-  //   });
-
-  //   const data = await response.json();
-  //   console.log(data, 'data');
-  // };
-
-  const fetchUsers = async () => {
-    const response = await fetch('https://api.github.com/users', {
-      headers: {
-        Authorization: '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',
-      },
-    });
-
-    const data = await response.json();
-    console.log(data, 'data');
-    setUsers(data);
-    setLoading(false);
-  };
-
-  return <div>User Results</div>;
+  if (!loading) {
+    return (
+      <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
+        {users.map((user) => (
+          <UserItem user={user} />
+        ))}
+      </div>
+    );
+  } else {
+    return <Spin />;
+  }
 };
 
 export default UserResults;
