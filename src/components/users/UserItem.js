@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import GitHubContext from '../../context/github/GithubContext';
 
 const UserItem = ({ user }) => {
   return (

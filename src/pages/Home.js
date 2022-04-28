@@ -1,9 +1,10 @@
 import UserResults from '../components/users/UserResults';
+import UserSearch from '../components/users/UserSearch';
 
 const Home = () => {
   return (
     <>
-      {/* Serach Component will go here  */}
+      <UserSearch />
       <UserResults />
     </>
   );
